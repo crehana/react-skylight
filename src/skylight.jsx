@@ -30,25 +30,29 @@ var SkyLight = React.createClass({
     },
     show: function () {
         this.setState({isVisible: true});
+        //colivera
+        document.body.className = "modal-open";
     },
     hide: function () {
         this.setState({isVisible: false});
+        //colivera
+        document.body.className = " ";
     },
     componentWillUpdate: function (nextProps, nextState) {
-        if (nextState.isVisible && !this.state.isVisible && this.props.beforeOpen) {
+        if (nextState.isVisible && this.props.beforeOpen) {
             this.props.beforeOpen();
         }
 
-        if (!nextState.isVisible && this.state.isVisible && this.props.beforeClose) {
+        if (!nextState.isVisible && this.props.beforeClose) {
             this.props.beforeClose();
         }
     },
     componentDidUpdate: function (prevProps, prevState) {
-        if (!prevState.isVisible && this.state.isVisible && this.props.afterOpen) {
+        if (!prevState.isVisible && this.props.afterOpen) {
             this.props.afterOpen();
         }
 
-        if (prevState.isVisible && !this.state.isVisible && this.props.afterClose) {
+        if (prevState.isVisible && this.props.afterClose) {
             this.props.afterClose();
         }
     },
@@ -58,7 +62,7 @@ var SkyLight = React.createClass({
 
         var dialogStyles = extend(styles.dialogStyles, this.props.dialogStyles);
         var overlayStyles = extend(styles.overlayStyles, this.props.overlayStyles);
-        var closeButtonStyle = extend(styles.closeButtonStyle, this.props.closeButtonStyle);
+        var closeButtonStyle = extend(styles.closeButtonStyle = this.props.closeButtonStyle);
 
         if (this.state.isVisible) {
             overlayStyles.display = 'block';
@@ -69,7 +73,7 @@ var SkyLight = React.createClass({
         }
 
         if (this.props.showOverlay) {
-            overlay = (<div style={overlayStyles}></div>);
+            overlay = (<div style={overlayStyles} onClick={this.hide}></div>);
         }
 
         return (
